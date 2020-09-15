@@ -23,14 +23,13 @@ public class UfProcessadorLinha implements ProcessadorLinha{
 			Uf ufAux = ufDao.busca(csv.getSiglaUf());
 			if(ufAux == null) {
 				Uf uf = new Uf();
-				Cidade cidade = new Cidade();
+				//Cidade cidade = new Cidade();
 				uf.setSigla(csv.getSiglaUf());
-				cidade.setNome(csv.getCidade());
-				cidade.setUf(uf);
-				uf.setCidades(cidade);
+				//cidade.setNome(csv.getCidade());
+				//cidade.setUf(uf);
+				//uf.setCidades(cidade);
 				//uf.setEmpresas(csv.getRazaoSocial());
 				ufDao.inserir(uf);
-
 			}
 			em.getTransaction().commit();
 		} catch (Exception e) {

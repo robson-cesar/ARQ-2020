@@ -26,7 +26,7 @@ public class Uf implements Serializable{
 	@OneToMany(mappedBy ="uf")
 	private List<Empresa> empresas = new ArrayList<>();
 	@OneToMany(mappedBy ="uf")
-	private List<Cidade> cidades= new ArrayList<>();
+	private List<Cidade> cidades = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -64,7 +64,10 @@ public class Uf implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cidades == null) ? 0 : cidades.hashCode());
+		result = prime * result + ((empresas == null) ? 0 : empresas.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
 
@@ -77,17 +80,33 @@ public class Uf implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Uf other = (Uf) obj;
+		if (cidades == null) {
+			if (other.cidades != null)
+				return false;
+		} else if (!cidades.equals(other.cidades))
+			return false;
+		if (empresas == null) {
+			if (other.empresas != null)
+				return false;
+		} else if (!empresas.equals(other.empresas))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Uf [id=" + id + ", sigla=" + sigla + ", empresas=" + empresas + ", cidades="
-				+ cidades + "]";
+		return "Uf [id=" + id + ", sigla=" + sigla + ", empresas=" + empresas + ", cidades=" + cidades + "]";
 	}
+
+	
 }

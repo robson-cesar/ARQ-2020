@@ -25,7 +25,7 @@ public class Produto implements Serializable{
 	private String nome;
 	@ManyToMany
 	@JoinColumn(name="id_empresa", nullable = false)
-	private List<Empresa> empresa;
+	private List<Empresa> empresas;
 	
 	public Long getId() {
 		return id;
@@ -43,18 +43,19 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 	
-	public List<Empresa> getEmpresa() {
-		return empresa;
+	public List<Empresa> getEmpresas() {
+		return empresas;
 	}
 
-	public void setEmpresa(List<Empresa> empresa) {
-		this.empresa = empresa;
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((empresas == null) ? 0 : empresas.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
@@ -69,6 +70,11 @@ public class Produto implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
+		if (empresas == null) {
+			if (other.empresas != null)
+				return false;
+		} else if (!empresas.equals(other.empresas))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -84,6 +90,8 @@ public class Produto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", empresas=" + empresas + "]";
 	}
+
+	
 }
