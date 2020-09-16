@@ -17,6 +17,7 @@ public class BairroProcessadorLinha implements ProcessadorLinha{
 	private BairroDao bairroDao;
 	
 	public BairroProcessadorLinha(EntityManager em) {
+		this.em = em;
 		this.ufDao = new UfDao(em);
 		this.cidadeDao = new CidadeDao(em);
 		this.bairroDao = new BairroDao(em);

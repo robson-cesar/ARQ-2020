@@ -20,6 +20,7 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 	private EmpresaDao empresaDao;
 	
 	public EmpresaProcessadorLinha(EntityManager em) {
+		this.em = em;
 		this.ufDao = new UfDao(em);
 		this.cidadeDao = new CidadeDao(em);
 		this.bairroDao = new BairroDao(em);

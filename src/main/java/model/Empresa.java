@@ -12,9 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-@Entity
-@Table(name="tb_empresa")
+//
+//@Entity
+//@Table(name="tb_empresa")
 public class Empresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 

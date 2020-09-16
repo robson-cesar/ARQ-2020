@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="tb_bairro")
+//@Entity
+//@Table(name="tb_bairro")
 public class Bairro implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

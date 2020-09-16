@@ -18,6 +18,7 @@ public class ProdutoProcessadorLinha implements ProcessadorLinha{
 	private ProdutoDao produtoDao;
 	
 	public ProdutoProcessadorLinha(EntityManager em) {
+		this.em = em;
 		this.empresaDao = new EmpresaDao(em);
 		this.produtoDao = new ProdutoDao(em);
 	}

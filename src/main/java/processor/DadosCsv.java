@@ -79,4 +79,6 @@ public class DadosCsv {
 	public int getColunasDisponiveis() {
 		return campos.length;
 	}
+	
+	
 }
