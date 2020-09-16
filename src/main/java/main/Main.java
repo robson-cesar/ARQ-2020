@@ -11,7 +11,7 @@ public class Main {
 		EntityManager em = JPAUtil.getEntityManager();
 		Reader leitor = new Reader();
 		leitor.executa(arquivoUf, new UfProcessadorLinha(em));
-//		leitor.executa(arquivo, new CsvProcessadorLinha(em));
+		leitor.executa(arquivo, new CsvProcessadorLinha(em),true);
 		System.exit(0);
 	}
 }

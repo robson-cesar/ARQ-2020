@@ -24,9 +24,9 @@ public class CidadeDao implements Serializable{
 
 	public Cidade busca(Uf uf, String cidade) {
 		StringBuilder jpql = new StringBuilder();
-		jpql.append("SELECT c FROM Cidade c");
-		jpql.append("WHERE c.uf = :pUf");
-		jpql.append("AND c.nome = :pCidade");
+		jpql.append("SELECT c FROM Cidade c ");
+		jpql.append("WHERE c.uf = :pUf ");
+		jpql.append("   AND c.nome = :pCidade ");
 		TypedQuery<Cidade> query = em.createQuery(jpql.toString(), Cidade.class);
 		query.setParameter("pUf", uf);
 		query.setParameter("pCidade", cidade);

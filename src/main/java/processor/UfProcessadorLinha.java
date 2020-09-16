@@ -3,7 +3,6 @@ package processor;
 import javax.persistence.EntityManager;
 
 import dao.UfDao;
-import model.Cidade;
 import model.Uf;
 
 public class UfProcessadorLinha implements ProcessadorLinha{

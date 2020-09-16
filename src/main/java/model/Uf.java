@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="tb_uf")
@@ -24,8 +24,7 @@ public class Uf implements Serializable{
 	private String sigla;
 	@Column (length = 20, nullable = false)
 	private String nome;
-//	@OneToMany(mappedBy ="uf")
-	@Transient
+	@OneToMany(mappedBy ="uf")
 	private List<Cidade> cidades = new ArrayList<>();
 
 	public Long getId() {

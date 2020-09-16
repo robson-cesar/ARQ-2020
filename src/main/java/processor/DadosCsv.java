@@ -1,9 +1,5 @@
 package processor;
 
-import java.util.List;
-
-import model.Cidade;
-
 public class DadosCsv {
 	
 	private String campos[];

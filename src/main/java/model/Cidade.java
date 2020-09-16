@@ -11,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-//@Entity
-//@Table(name="tb_cidade")
+@Entity
+@Table(name="tb_cidade")
 public class Cidade implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,7 @@ public class Cidade implements Serializable{
 	@JoinColumn(name="uf_id", nullable = false)
 	private Uf uf;
 //	@OneToMany (mappedBy = "cidade")
+	@Transient
 	private List<Bairro> bairros = new ArrayList<>();
 	
 	public Long getId() {
