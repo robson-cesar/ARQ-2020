@@ -8,6 +8,7 @@ import dao.UfDao;
 import model.Bairro;
 import model.Cidade;
 import model.Uf;
+import validador.BairroValidador;
 
 public class BairroProcessadorLinha implements ProcessadorLinha{
 	
@@ -15,6 +16,7 @@ public class BairroProcessadorLinha implements ProcessadorLinha{
 	private UfDao ufDao;
 	private CidadeDao cidadeDao;
 	private BairroDao bairroDao;
+	private BairroValidador bairroValidador = new BairroValidador();
 	
 	public BairroProcessadorLinha(EntityManager em) {
 		this.em = em;
@@ -24,8 +26,13 @@ public class BairroProcessadorLinha implements ProcessadorLinha{
 	}
 	
 	public void processa(String linha) {
-		DadosCsv csv = new DadosCsv(linha);
 		
+		EmpresaCsv csv = new EmpresaCsv(linha);
+		
+		if (bairroValidador.naoPodeIncluir(csv.getBairro())) { 
+			return;
+		}
+
 		try {
 			em.getTransaction().begin();
 			Uf uf = ufDao.busca(csv.getSiglaUf());

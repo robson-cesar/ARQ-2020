@@ -28,7 +28,7 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 	}
 	
 	public void processa(String linha) {
-		DadosCsv csv = new DadosCsv(linha);
+		EmpresaCsv csv = new EmpresaCsv(linha);
 		
 		try {
 			em.getTransaction().begin();

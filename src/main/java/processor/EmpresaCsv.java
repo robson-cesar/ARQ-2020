@@ -1,10 +1,10 @@
 package processor;
 
-public class DadosCsv {
+public class EmpresaCsv {
 	
 	private String campos[];
 	
-	public DadosCsv(String linha) {
+	public EmpresaCsv(String linha) {
 		campos = linha.split(";");
 	}
 	
