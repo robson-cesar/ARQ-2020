@@ -7,7 +7,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import model.Produto;
-import model.Uf;
 
 public class ProdutoDao implements Serializable{
 	private static final long serialVersionUID = 1L;

@@ -12,7 +12,8 @@ public class CsvProcessadorLinha implements ProcessadorLinha{
 	public CsvProcessadorLinha(EntityManager em) {
 		processadoresLinha.add(new CidadeProcessadorLinha(em));
 		processadoresLinha.add(new BairroProcessadorLinha(em));
-//		processadoresLinha.add(new EmpresaProcessadorLinha(em));
+		processadoresLinha.add(new RamoProcessadorLinha(em));
+		processadoresLinha.add(new EmpresaProcessadorLinha(em));
 //		processadoresLinha.add(new ProdutoProcessadorLinha(em));
 	}
  

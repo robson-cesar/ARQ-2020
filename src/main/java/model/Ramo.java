@@ -1,18 +1,20 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-//@Entity
-//@Table (name = "tb_produto")
-public class Produto implements Serializable{
+@Entity
+@Table (name = "tb_ramo")
+public class Ramo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,9 +22,8 @@ public class Produto implements Serializable{
 	private Long id;
 	@Column(length = 50)
 	private String nome;
-	@ManyToMany
-	@JoinColumn(name="id_empresa", nullable = false)
-	private List<Empresa> empresas;
+	@OneToMany (mappedBy = "ramo")
+	private List<Empresa> empresas = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -39,7 +40,7 @@ public class Produto implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
@@ -52,9 +53,7 @@ public class Produto implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((empresas == null) ? 0 : empresas.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -66,29 +65,18 @@ public class Produto implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
-		if (empresas == null) {
-			if (other.empresas != null)
-				return false;
-		} else if (!empresas.equals(other.empresas))
-			return false;
+		Ramo other = (Ramo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", empresas=" + empresas + "]";
+		return "Ramo [id=" + id + ", nome=" + nome + ", empresas=" + empresas + "]";
 	}
-
 	
 }

@@ -2,14 +2,10 @@ package processor;
 
 import javax.persistence.EntityManager;
 
-import dao.CidadeDao;
 import dao.EmpresaDao;
 import dao.ProdutoDao;
-import dao.UfDao;
-import model.Cidade;
 import model.Empresa;
 import model.Produto;
-import model.Uf;
 
 public class ProdutoProcessadorLinha implements ProcessadorLinha{
 	

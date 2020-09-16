@@ -1,12 +1,12 @@
  Fazendo:
- Importar Ramos
+ Importar Empresas
  
  A fazer:
- Importar Empresas
  Importar Produtos
  
  Feito: 
  Importart UFs
  Importar Cidades
  Importar Bairros
+ Importar Ramos
  

@@ -5,10 +5,12 @@ import javax.persistence.EntityManager;
 import dao.BairroDao;
 import dao.CidadeDao;
 import dao.EmpresaDao;
+import dao.RamoDao;
 import dao.UfDao;
 import model.Bairro;
 import model.Cidade;
 import model.Empresa;
+import model.Ramo;
 import model.Uf;
 
 public class EmpresaProcessadorLinha implements ProcessadorLinha{
@@ -18,6 +20,7 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 	private CidadeDao cidadeDao;
 	private BairroDao bairroDao;
 	private EmpresaDao empresaDao;
+	private RamoDao ramoDao;
 	
 	public EmpresaProcessadorLinha(EntityManager em) {
 		this.em = em;
@@ -25,13 +28,15 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 		this.cidadeDao = new CidadeDao(em);
 		this.bairroDao = new BairroDao(em);
 		this.empresaDao = new EmpresaDao(em);
+		this.ramoDao = new RamoDao(em);
 	}
 	
 	public void processa(String linha) {
 		EmpresaCsv csv = new EmpresaCsv(linha);
-		
+			
 		try {
 			em.getTransaction().begin();
+			
 			Uf uf = ufDao.busca(csv.getSiglaUf());
 			if(uf == null) {
 				em.getTransaction().rollback();
@@ -50,15 +55,21 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 				return;
 			}
 			
+			Ramo ramo = ramoDao.busca(csv.getRamo());
+			if(ramo == null) {
+				em.getTransaction().rollback();
+				return;
+			}
+			
 			Empresa EmpresaAux = empresaDao.busca(csv.getRazaoSocial());
 			if(EmpresaAux == null) {
 				Empresa empresa = new Empresa();
 				empresa.setUf(uf);
 				empresa.setCidade(cidade);
 				empresa.setBairro(bairro);
+				empresa.setRamo(ramo);
 				empresa.setCep(csv.getCep());
 				empresa.setLogradouro(csv.getLogradouro());
-				empresa.setRamo(csv.getRamo());
 				empresa.setRazaoSocial(csv.getRazaoSocial());
 				empresa.setEmail(csv.getEmail());
 				empresa.setSite(csv.getSite());
@@ -66,8 +77,8 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 				empresa.setTelefone(csv.getTelefone());
 				empresa.setFuncionario(csv.getFuncionario());
 				empresa.setContato(csv.getContato());
-				//empresa.setProduto(csv.getProduto());
-				bairroDao.inserir(bairro);
+//				empresa.setProdutos(csv.getProduto());
+				empresaDao.inserir(empresa);
 			}
 			
 			em.getTransaction().commit();

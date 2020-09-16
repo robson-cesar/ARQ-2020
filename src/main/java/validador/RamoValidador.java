@@ -1,6 +1,6 @@
 package validador;
 
-public class BairroValidador {
+public class RamoValidador {
 
 	public boolean naoPodeIncluir(String str) {
 		
