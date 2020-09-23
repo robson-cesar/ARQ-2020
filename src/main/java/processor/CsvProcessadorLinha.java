@@ -28,7 +28,6 @@ public class CsvProcessadorLinha implements ProcessadorLinha{
 			em.getTransaction().commit();
 		} catch(Exception e) {
 			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
 		}
 	}	
 }

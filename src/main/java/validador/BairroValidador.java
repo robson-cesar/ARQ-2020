@@ -1,22 +1,38 @@
 package validador;
 
+import model.Bairro;
+
 public class BairroValidador {
+	
+	private String mensagem = null;
 
-	public boolean naoPodeIncluir(String str) {
+	public boolean isNaoValido(Bairro bairro) {
+		mensagem = null;
 		
-		if (str == null) {
+		if (isEmpty(bairro.getNome())) {
+			mensagem = "Bairro não informado.";
 			return true;
 		}
-
-		if (str.equals("''")) { 
+		
+		if (bairro.getNome().length() > 50) {
+			mensagem = "Bairro inválido.";
 			return true;
 		}
-
-		if (str.length()==0) { 
+		
+		if (bairro.getCidade() == null) { 
+			mensagem = "Cidade não informada.";
 			return true;
 		}
-
+		
 		return false;
+	}
+	
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	private boolean isEmpty(String str) { 
+		return (str == null) || (str.length() == 0);
 	}
 
 }

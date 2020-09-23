@@ -6,11 +6,13 @@ import dao.CidadeDao;
 import dao.UfDao;
 import model.Cidade;
 import model.Uf;
+import validador.CidadeValidador;
 
 public class CidadeProcessadorLinha implements ProcessadorLinha{
 	
 	private UfDao ufDao;
 	private CidadeDao cidadeDao;
+	private CidadeValidador cidadeValidador = new CidadeValidador();
 	
 	public CidadeProcessadorLinha(EntityManager em) {
 		this.ufDao = new UfDao(em);
@@ -30,6 +32,10 @@ public class CidadeProcessadorLinha implements ProcessadorLinha{
 			Cidade cidade = new Cidade();
 			cidade.setNome(csv.getCidade());
 			cidade.setUf(uf);
+			if (cidadeValidador.isNaoValido(cidade)) {
+				System.out.println(cidadeValidador.getMensagem());
+				return;
+			}
 			cidadeDao.inserir(cidade);
 		}
 	}

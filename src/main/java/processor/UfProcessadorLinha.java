@@ -4,11 +4,13 @@ import javax.persistence.EntityManager;
 
 import dao.UfDao;
 import model.Uf;
+import validador.UfValidador;
 
 public class UfProcessadorLinha implements ProcessadorLinha{
 
 	private UfDao ufDao;
 	private EntityManager em = null;
+	private UfValidador ufValidador = new UfValidador();
 
 	public UfProcessadorLinha(EntityManager em) {
 		this.em = em;
@@ -25,6 +27,10 @@ public class UfProcessadorLinha implements ProcessadorLinha{
 				Uf uf = new Uf();
 				uf.setSigla(txt.getSigla());
 				uf.setNome(txt.getNome());
+				if (ufValidador.isNaoValido(uf)) {
+					System.out.println(ufValidador.getMensagem());
+					return;
+				}
 				ufDao.inserir(uf);
 			}
 			

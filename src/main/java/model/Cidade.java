@@ -22,7 +22,7 @@ public class Cidade implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length = 40, nullable = false)
+	@Column(length = 50, nullable = false)
 	private String nome;
 	@ManyToOne
 	@JoinColumn(name="uf_id", nullable = false)

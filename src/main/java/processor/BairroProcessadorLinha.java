@@ -27,10 +27,6 @@ public class BairroProcessadorLinha implements ProcessadorLinha{
 
 		EmpresaCsv csv = new EmpresaCsv(linha);
 
-		if (bairroValidador.naoPodeIncluir(csv.getBairro())) { 
-			return;
-		}
-
 		Uf uf = ufDao.busca(csv.getSiglaUf());
 		if(uf == null) {
 			return;
@@ -46,6 +42,10 @@ public class BairroProcessadorLinha implements ProcessadorLinha{
 			Bairro bairro = new Bairro();
 			bairro.setCidade(cidade);
 			bairro.setNome(csv.getBairro());
+			if (bairroValidador.isNaoValido(bairro)) {
+				System.out.println(bairroValidador.getMensagem());
+				return;
+			}
 			bairroDao.inserir(bairro);
 		}
 	}

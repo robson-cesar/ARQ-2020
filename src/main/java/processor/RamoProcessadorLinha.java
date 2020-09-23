@@ -18,14 +18,14 @@ public class RamoProcessadorLinha implements ProcessadorLinha{
 	public void processa(String linha) {
 		EmpresaCsv csv = new EmpresaCsv(linha);
 
-		if (ramoValidador.naoPodeIncluir(csv.getRamo())) { 
-			return;
-		}
-
 		Ramo ramoAux = ramoDao.busca(csv.getRamo());
 		if(ramoAux == null) {
 			Ramo ramo = new Ramo();
 			ramo.setNome(csv.getRamo());
+			if (ramoValidador.isNaoValido(ramo)) {
+				System.out.println(ramoValidador.getMensagem());
+				return;
+			}
 			ramoDao.inserir(ramo);
 		}
 	}

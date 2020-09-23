@@ -12,9 +12,7 @@ import model.Cidade;
 import model.Empresa;
 import model.Ramo;
 import model.Uf;
-import validador.BairroValidador;
 import validador.EmpresaValidador;
-import validador.RamoValidador;
 
 public class EmpresaProcessadorLinha implements ProcessadorLinha{
 	
@@ -23,8 +21,6 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 	private BairroDao bairroDao;
 	private EmpresaDao empresaDao;
 	private RamoDao ramoDao;
-	private RamoValidador ramoValidador = new RamoValidador();
-	private BairroValidador bairroValidador = new BairroValidador();
 	private EmpresaValidador empresaValidador = new EmpresaValidador();
 	
 	public EmpresaProcessadorLinha(EntityManager em) {
@@ -48,17 +44,11 @@ public class EmpresaProcessadorLinha implements ProcessadorLinha{
 			return;
 		}
 
-		if (bairroValidador.naoPodeIncluir(csv.getBairro())) { 
-			return;
-		}
 		Bairro bairro = bairroDao.busca(cidade, csv.getBairro());
 		if(bairro == null) {
 			return;
 		}
 
-		if (ramoValidador.naoPodeIncluir(csv.getRamo())) { 
-			return;
-		}
 		Ramo ramo = ramoDao.busca(csv.getRamo());
 		if(ramo == null) {
 			return;
