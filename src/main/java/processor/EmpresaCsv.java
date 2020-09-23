@@ -1,5 +1,8 @@
 package processor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmpresaCsv {
 	
 	private String campos[];
@@ -68,8 +71,12 @@ public class EmpresaCsv {
 		return tratarCelula(campos[12]);
 	}
 	
-	public String getProduto() {
-		return tratarCelula(campos[13]);
+	public List<String> getProduto() {
+		List<String> result = new ArrayList<>();
+		for(int indice = 13; indice < getColunasDisponiveis(); indice++) {  
+			result.add(tratarCelula(campos[indice]));
+		}
+		return result;
 	}
 
 	public int getColunasDisponiveis() {

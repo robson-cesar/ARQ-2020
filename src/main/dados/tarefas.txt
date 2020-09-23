@@ -1,5 +1,6 @@
  Fazendo:
  Importar Empresas
+ Adequar validadores
  
  A fazer:
  Importar Produtos

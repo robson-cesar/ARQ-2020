@@ -4,24 +4,24 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-//@Entity
-//@Table (name = "tb_produto")
+@Entity
+@Table (name = "tb_produto")
 public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length = 50)
+	@Column(length = 70)
 	private String nome;
-	@ManyToMany
-	@JoinColumn(name="id_empresa", nullable = false)
+	@ManyToMany(mappedBy = "produtos")
 	private List<Empresa> empresas;
 	
 	public Long getId() {
@@ -44,17 +44,19 @@ public class Produto implements Serializable{
 		return empresas;
 	}
 
-	public void setEmpresas(List<Empresa> empresas) {
-		this.empresas = empresas;
+	public void setEmpresas(Empresa empresa) {
+		if (empresas.contains(empresa)) {
+			return;
+		}
+		this.empresas.add(empresa);
+		empresa.setProdutos(this);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((empresas == null) ? 0 : empresas.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -67,20 +69,10 @@ public class Produto implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		if (empresas == null) {
-			if (other.empresas != null)
-				return false;
-		} else if (!empresas.equals(other.empresas))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
@@ -90,5 +82,4 @@ public class Produto implements Serializable{
 		return "Produto [id=" + id + ", nome=" + nome + ", empresas=" + empresas + "]";
 	}
 
-	
 }

@@ -10,9 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="tb_empresa")
@@ -22,40 +23,41 @@ public class Empresa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length = 50)
+	@Column(length = 70)
 	private String razaoSocial;
-	@Column(length = 50)
+	@Column(length = 70)
 	private String logradouro;
-	@Column(length = 15)
+	@Column(length = 10)
 	private String cep;
-	@Column(length = 15)
+	@Column(length = 30)
 	private String telefone;
-	@Column(length = 50)
-	private int funcionario;
+	@Column(nullable = true)
+	private Integer qtdFuncionario;
 	@Column(length = 50)
 	private String site; 
 	@Column(length = 50)
 	private String email;
-	@Column(length = 15)
+	@Column(length = 30)
 	private String fax;
-	@Column(length = 20)
+	@Column(length = 50)
 	private String contato;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_uf", nullable = false)
+	@JoinColumn(name = "id_uf")
 	private Uf uf;
 	@ManyToOne
-	@JoinColumn(name = "id_cidade", nullable = false)
+	@JoinColumn(name = "id_cidade")
 	private Cidade cidade;
 	@ManyToOne
-	@JoinColumn(name = "id_bairro", nullable = false)
+	@JoinColumn(name = "id_bairro")
 	private Bairro bairro;
 	@ManyToOne
-	@JoinColumn(name = "id_ramo", nullable = false)
+	@JoinColumn(name = "id_ramo")
 	private Ramo ramo;
-//	@ManyToMany(mappedBy = "empresas")
-//	@JoinColumn(name = "id_produto", nullable = false)
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "tb_empresa_tb_produto", 
+		joinColumns = @JoinColumn(name="id_empresa", referencedColumnName="id"),
+		inverseJoinColumns = @JoinColumn(name="id_produto", referencedColumnName="id"))
 	private List<Produto> produtos = new ArrayList<>();
 	
 	public Long getId() {
@@ -97,12 +99,11 @@ public class Empresa implements Serializable{
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public int getFuncionario() {
-		return funcionario;
+	public Integer getqtdFuncionario() {
+		return qtdFuncionario;
 	}
-	public void setFuncionario(int
-			funcionario) {
-		this.funcionario = funcionario;
+	public void setqtdFuncionario(Integer funcionario) {
+		this.qtdFuncionario = funcionario;
 	}
 	public String getSite() {
 		return site;
@@ -152,9 +153,14 @@ public class Empresa implements Serializable{
 	public void setContato(String contato) {
 		this.contato = contato;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProdutos(Produto produto) {
+		if (this.produtos.contains(produto)) { 
+			return;
+		}
+		this.produtos.add(produto);
+		produto.setEmpresas(this);
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -181,9 +187,9 @@ public class Empresa implements Serializable{
 	@Override
 	public String toString() {
 		return "Empresa [id=" + id + ", razaoSocial=" + razaoSocial + ", logradouro=" + logradouro + ", cep=" + cep
-				+ ", telefone=" + telefone + ", funcionario=" + funcionario + ", site=" + site + ", email=" + email
+				+ ", telefone=" + telefone + ", funcionario=" + qtdFuncionario + ", site=" + site + ", email=" + email
 				+ ", fax=" + fax + ", contato=" + contato + ", uf=" + uf + ", cidade=" + cidade + ", bairro=" + bairro
-				+ ", produtos=" + produtos + ", ramo=" + ramo + "]";
+				+ ", ramo=" + ramo + ", produtos=" + produtos + "]";
 	}
 	
 }

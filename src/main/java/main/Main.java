@@ -12,6 +12,7 @@ public class Main {
 		Reader leitor = new Reader();
 		leitor.executa(arquivoUf, new UfProcessadorLinha(em));
 		leitor.executa(arquivo, new CsvProcessadorLinha(em),true);
+		System.out.println("***FIM DO PROCESSAMENTO***");
 		System.exit(0);
 	}
 }
